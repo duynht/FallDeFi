@@ -253,25 +253,26 @@
 %Fall data extract from .dat  interpolate and save as .mat
 
 sample_size = 2000
+
 %% Amplitude extraction
 TX_ant = 1;
 
-domain = ["bedrooms", "bedrooms2", "corridor1", "corridor2_1", "corridor2_2", "kitchen", "kitchen2", "Lab2"]
+domain = ["bedrooms", "bedrooms2", "corridor1", "corridor2_1", "corridor2_2", "kitchen", "kitchen2", "Lab2"];
 
 for k = 1:length(domain)
-    files = dir(['../../../fall_data/falldefi/fall_detection/' domain(k) '*.dat'])
+    files = dir(join(['../../../fall_data/falldefi/fall_detection/' domain(k) '/*.dat'],""));
 
-    mkdir(['../../../fall_data/falldefi/fall_detection/' domain(k)])
+    mkdir(join(['../../../interp/' domain(k)],""));
 
-    for i = 1:length(kitchen_files)
-        file_name = kitchen_files(i).name;
-        data_file = ['../../../fall_data/falldefi/fall_detection/kitchen2/' file_name];  
+    for i = 1:length(files)
+        file_name = files(i).name;
+        data_file = join(['../../../fall_data/falldefi/fall_detection/' domain(k) '/' file_name],"");  
 
         [ant1, ant2, ant3] = extract_amp_interp(TX_ant, data_file,10000);
 
         v = vertcat(ant1,ant2);
 
-        save(['../../../interp/' domain(k) '/' file_name(1:end-4) '.mat'],'v')
+        save(join(['../../../interp/' domain(k) '/' file_name(1:end-4) '.mat'],""),'v')
         clear v
     end
 end
