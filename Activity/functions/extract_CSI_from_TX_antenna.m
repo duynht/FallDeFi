@@ -12,7 +12,8 @@ function [RX_1_ant_sq, RX_2_ant_sq, RX_3_ant_sq] = extract_CSI_from_TX_antenna(T
 %x = linspace(1, size(csi_trace,1),size(csi_trace,1));
     csi_entry = csi_trace{2};
     csi = get_scaled_csi(csi_entry);
-     fprintf('no. of CSI values: %d\n',size(csi_trace,1));
+    fprintf('no. of TXs: %d\n',size(csi,1))
+    fprintf('no. of CSI values: %d\n',size(csi_trace,1));
 %CHeck the no
 %x=1;
    if size(csi,1)==1 % 1 TX antenna
